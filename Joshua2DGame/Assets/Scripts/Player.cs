@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    public float moveSpeed; // how fast our player moves
+    public float xBounds;
+    public float yBounds;
+    public Vector2 mousePosition; // hold whatever the mouse position is
+    public Transform shootPosition;
+    public GameObject bullet;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Move(); // we need to call move here, for it to update our player
+        RotatePlayer();
+        Shoot();
+    }
+
+    public void Move()
+    {
+        if (Input.GetKey(KeyCode.W) && transform.position.y < yBounds)
+        {
+            //transform.Translate(Vector3.up * moveSpeed * Time.deltaTime); // move the player up
+            transform.position = new Vector3(transform.position.x, transform.position.y + moveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.S) && transform.position.y > -yBounds)
+        {
+            //transform.Translate(Vector3.down * moveSpeed * Time.deltaTime); // move the player down
+            transform.position = new Vector3(transform.position.x, transform.position.y - moveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.D) && transform.position.x < xBounds)
+        {
+            //transform.Translate(Vector3.right * moveSpeed * Time.deltaTime); // move the player right
+            transform.position = new Vector3(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+        }
+        if (Input.GetKey(KeyCode.A) && transform.position.x > -xBounds)
+        {
+            //transform.Translate(Vector3.left * moveSpeed * Time.deltaTime); // move the player left
+            transform.position = new Vector3(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y);
+        }
+    }
+    public void RotatePlayer()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 lookdirection = mousePosition - new Vector2(transform.position.x, transform.position.y); // the direction we want the ship to look
+        float angle = Mathf.Atan2(lookdirection.y, lookdirection.x) * Mathf.Rad2Deg - 90f; // angle between the player and mouse
+        transform.rotation = Quaternion.Euler(0, 0, angle); // apply the angle to our rotation
+    }
+    public void Shoot()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Instantiate(bullet, shootPosition.position, transform.rotation); // spawning bullets
+        }
+    }
+}
