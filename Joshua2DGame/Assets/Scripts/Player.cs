@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
     public Transform shootPosition;
     public GameObject bullet;
     public bool isShooting; // to know if we are shooting or not
+
+    public GameObject LoseCanvas;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1;
+        LoseCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -74,5 +77,14 @@ public class Player : MonoBehaviour
         newBullet.GetComponent<Rigidbody2D>().AddForce(shootPosition.up * 5, ForceMode2D.Impulse); // we can move bullet here instead
         yield return new WaitForSeconds(0.5f); // wait for .5 seconds
         isShooting = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<DumbEnemy>())
+        {
+            LoseCanvas.SetActive(true); // show the lose canvas
+            Time.timeScale = 0; // pause the game
+        }
     }
 }
