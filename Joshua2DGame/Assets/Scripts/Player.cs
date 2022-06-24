@@ -86,5 +86,10 @@ public class Player : MonoBehaviour
             LoseCanvas.SetActive(true); // show the lose canvas
             Time.timeScale = 0; // pause the game
         }
+        if (collision.gameObject.GetComponent<SeekerEnemy>())
+        {
+            LoseCanvas.SetActive(true); // show the lose canvas
+            Time.timeScale = 0; // pause the game
+        }
     }
 }

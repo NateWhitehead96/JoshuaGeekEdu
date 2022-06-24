@@ -18,8 +18,8 @@ public class HUDScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = score.ToString(); // display score
-        SurvivalText.text = timer.ToString("n0"); // show whole numbers and display time
+        scoreText.text = "Score: " + score.ToString(); // display Score: xxxxx
+        SurvivalText.text = "Time: " + timer.ToString("n0"); // show whole numbers and display time = Time: xxx
         timer += Time.deltaTime; // increase our timer
     }
 }

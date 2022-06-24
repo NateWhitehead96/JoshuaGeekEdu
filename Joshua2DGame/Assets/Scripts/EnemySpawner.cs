@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject Enemy;
+    public GameObject[] Enemy; // make this variable into an array
     public Transform player;
     public float timer; // how often the enemy spawns
     public bool side; // to know if the spawner is on the sides or not. being on the left or right side = true, up or down side = false
@@ -37,8 +37,16 @@ public class EnemySpawner : MonoBehaviour
             float angle = Mathf.Atan2(lookdirection.y, lookdirection.x) * Mathf.Rad2Deg - 90f; // angle between the player and mouse
             transform.rotation = Quaternion.Euler(0, 0, angle); // apply the angle to our rotation
 
-            GameObject newEnemy = Instantiate(Enemy, transform.position, transform.rotation); // spawn enemy
-            newEnemy.GetComponent<Rigidbody2D>().AddForce(transform.up * 2, ForceMode2D.Impulse); // shot towards the player
+            int randEnemy = Random.Range(0, Enemy.Length); // find a new random enemy
+            if (randEnemy == 0)
+            {  // spawn dumb
+                GameObject newEnemy = Instantiate(Enemy[0], transform.position, transform.rotation); // spawn enemy
+                newEnemy.GetComponent<Rigidbody2D>().AddForce(transform.up * 2, ForceMode2D.Impulse); // shot towards the player
+            }
+            if(randEnemy == 1)
+            {
+                Instantiate(Enemy[1], transform.position, transform.rotation); // spawn seeker
+            }
             timer = 0; // reset timer
         }
         timer += Time.deltaTime; // slowly increase the timer
