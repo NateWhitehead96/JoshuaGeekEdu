@@ -297,6 +297,7 @@ MonoBehaviour:
   moveSpeed: 1
   xBounds: 12
   yBounds: 7
+  deathEffect: {fileID: 5190488224572490739, guid: eff598c0cbb26714391d7f72b7caaf0b, type: 3}
 --- !u!50 &8182071590781043883
 Rigidbody2D:
   serializedVersion: 4

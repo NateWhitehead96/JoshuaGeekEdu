@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public Transform shootPosition;
     public GameObject bullet;
     public bool isShooting; // to know if we are shooting or not
-
+    public float shootSpeed; // how fast the player can shoot
     public GameObject LoseCanvas;
     // Start is called before the first frame update
     void Start()
@@ -73,9 +73,10 @@ public class Player : MonoBehaviour
     IEnumerator FireBullet() // is now how we shoot
     {
         isShooting = true;
+        SoundEffectManager.instance.shoot.Play(); // play the shoot sound
         GameObject newBullet = Instantiate(bullet, shootPosition.position, shootPosition.rotation); // spawning bullets
         newBullet.GetComponent<Rigidbody2D>().AddForce(shootPosition.up * 5, ForceMode2D.Impulse); // we can move bullet here instead
-        yield return new WaitForSeconds(0.5f); // wait for .5 seconds
+        yield return new WaitForSeconds(shootSpeed); // wait for however long the shoot speed is
         isShooting = false;
     }
 

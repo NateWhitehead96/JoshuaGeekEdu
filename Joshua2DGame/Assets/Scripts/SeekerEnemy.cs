@@ -6,6 +6,7 @@ public class SeekerEnemy : MonoBehaviour
 {
     public Transform player;
     public float speed;
+    public GameObject deathEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class SeekerEnemy : MonoBehaviour
         if (collision.gameObject.GetComponent<Bullet>())
         {
             // add score
+            Instantiate(deathEffect, transform.position, transform.rotation);
             HUDScript.score++; // increase our score
             Destroy(collision.gameObject); // destroy the bullet
             Destroy(gameObject); // destroy the enemy

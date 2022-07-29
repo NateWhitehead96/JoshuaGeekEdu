@@ -16,6 +16,7 @@ public class DumbEnemy : MonoBehaviour
     public float moveSpeed;
 
     public float xBounds, yBounds;
+    public GameObject deathEffect; // to spawn the death particle effect
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,7 @@ public class DumbEnemy : MonoBehaviour
         if (collision.gameObject.GetComponent<Bullet>())
         {
             // add score
+            Instantiate(deathEffect, transform.position, transform.rotation); // spawn the death effect
             HUDScript.score++; // increase our score
             Destroy(collision.gameObject); // destroy the bullet
             Destroy(gameObject); // destroy the enemy
