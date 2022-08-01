@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
     public float xBounds;
     public float yBounds;
+    public bool tracking;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,13 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        tracking = FindObjectOfType<Player>().homingBullets; // whatever the homing bullets is will be the tracking too
+        if(tracking == true)
+        {
+            rb.velocity = Vector2.zero; // get rid of the velocity on the bullet
+            transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 5 * Time.deltaTime);
+        }
+        //rb.AddForce(Vector3.up * 5 * Time.deltaTime, ForceMode2D.Impulse);
         //rb.AddForce(Vector3.up * 5 * Time.deltaTime); // constantly move the bullet "forward"    
     }
 }

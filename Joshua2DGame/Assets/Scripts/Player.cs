@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public bool isShooting; // to know if we are shooting or not
     public float shootSpeed; // how fast the player can shoot
     public GameObject LoseCanvas;
+    public bool multiShot; // power up
+    public Transform[] multiShootPos; // know about all the locations
+    public bool homingBullets; // power up
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +79,14 @@ public class Player : MonoBehaviour
         SoundEffectManager.instance.shoot.Play(); // play the shoot sound
         GameObject newBullet = Instantiate(bullet, shootPosition.position, shootPosition.rotation); // spawning bullets
         newBullet.GetComponent<Rigidbody2D>().AddForce(shootPosition.up * 5, ForceMode2D.Impulse); // we can move bullet here instead
+        if(multiShot == true) // for our multi shot power up
+        {
+            for (int i = 0; i < multiShootPos.Length; i++)
+            {
+                GameObject newbullet = Instantiate(bullet, multiShootPos[i].position, multiShootPos[i].rotation);
+                newbullet.GetComponent<Rigidbody2D>().AddForce(multiShootPos[i].up * 5, ForceMode2D.Impulse);
+            }
+        }
         yield return new WaitForSeconds(shootSpeed); // wait for however long the shoot speed is
         isShooting = false;
     }
