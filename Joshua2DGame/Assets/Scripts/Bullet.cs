@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public float xBounds;
     public float yBounds;
     public bool tracking;
+    public bool returnToNormal; // for after power up
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,16 @@ public class Bullet : MonoBehaviour
         if(tracking == true)
         {
             rb.velocity = Vector2.zero; // get rid of the velocity on the bullet
-            transform.position = Vector3.MoveTowards(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 5 * Time.deltaTime);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(mousePos.x, mousePos.y), 5 * Time.deltaTime);
+            returnToNormal = true; // 1 part to make the bullets back to normal
+        }
+        if(returnToNormal == true && tracking == false)
+        {
+            float x = Random.Range(0.5f, 5);
+            float y = Random.Range(0.5f, 5);
+            rb.velocity = new Vector2(x, y);
+            returnToNormal = false;
         }
         //rb.AddForce(Vector3.up * 5 * Time.deltaTime, ForceMode2D.Impulse);
         //rb.AddForce(Vector3.up * 5 * Time.deltaTime); // constantly move the bullet "forward"    
