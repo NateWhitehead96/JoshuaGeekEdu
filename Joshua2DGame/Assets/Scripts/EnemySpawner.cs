@@ -43,9 +43,23 @@ public class EnemySpawner : MonoBehaviour
                 GameObject newEnemy = Instantiate(Enemy[0], transform.position, transform.rotation); // spawn enemy
                 newEnemy.GetComponent<Rigidbody2D>().AddForce(transform.up * 2, ForceMode2D.Impulse); // shot towards the player
             }
-            if(randEnemy == 1)
+            if(randEnemy == 1 && HUDScript.score >= 50) // only start spawning seekers if we have 50 score or more
             {
                 Instantiate(Enemy[1], transform.position, transform.rotation); // spawn seeker
+            }
+            else
+            {
+                GameObject newEnemy = Instantiate(Enemy[0], transform.position, transform.rotation); // spawn enemy
+                newEnemy.GetComponent<Rigidbody2D>().AddForce(transform.up * 2, ForceMode2D.Impulse); // shot towards the player
+            }
+            if (randEnemy == 2 && HUDScript.score >= 100) // only start spawning shooters
+            {
+                Instantiate(Enemy[2], transform.position, transform.rotation); // spawn shooter
+            }
+            else
+            {
+                GameObject newEnemy = Instantiate(Enemy[0], transform.position, transform.rotation); // spawn enemy
+                newEnemy.GetComponent<Rigidbody2D>().AddForce(transform.up * 2, ForceMode2D.Impulse); // shot towards the player
             }
             timer = 0; // reset timer
         }
