@@ -22,7 +22,7 @@ public class SoundEffectManager : MonoBehaviour
     public AudioSource explosion;
     public AudioSource shoot;
     public AudioSource powerup;
-
+    public float volume;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +32,8 @@ public class SoundEffectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        explosion.volume = volume;
+        shoot.volume = volume;
+        powerup.volume = volume;
     }
 }

@@ -8,6 +8,11 @@ public class LoseScript : MonoBehaviour
     public void RestartGame()
     {
         HUDScript.score = 0; // reset the score
-        SceneManager.LoadScene(0); // loads the scene by build index or buy scene name
+        SceneManager.LoadScene(1); // loads the scene by build index or buy scene name
+    }
+
+    public void ReturnToMain()
+    {
+        SceneManager.LoadScene(0);
     }
 }
